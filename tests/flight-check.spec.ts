@@ -40,6 +40,8 @@ test('Check price of specific flight', async ({ page }) => {
 
   const allPrices = await myFlight.locator('.fare-button--value').all();
 
+  await expect(page.locator('#bingbong')).toBeVisible();
+
   //   await page.locator('.actionable--text', { hasText: flightNumbers }).click();
 
   // await page.pause();
