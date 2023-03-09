@@ -9,7 +9,7 @@ const flightData = [
     flightNumberOne: '3710',
     flightNumberTwo: '', //Only fill if you have second leg
   },
-{
+  {
     departCityCode: 'DCA',
     arriveCityCode: 'DAL',
     departDate: '5/1',
@@ -89,7 +89,7 @@ flightData.forEach((data) => {
       console.log('Cheapest current price is:', minPrice);
       console.log('Threshold price is:', thresholdPrice);
       // Fail the test if price is below threshold, so user gets alert
-      expect(minPrice > thresholdPrice, 'Price is cheaper!').toBeTruthy();
+      expect(minPrice >= thresholdPrice, 'Price is cheaper!').toBeTruthy();
       //If above statement is true/doesn't fail, then price is not cheaper
       console.log('Price is not cheaper');
     }
