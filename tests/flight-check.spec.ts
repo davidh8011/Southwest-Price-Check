@@ -86,6 +86,7 @@ flightData.forEach((data) => {
 
       //Display current price and threshold price for the flight
       console.log('Flight number(s):', flightNumbers);
+      console.log(departCityCode, '->', arriveCityCode, 'on', departDate);
       console.log('Cheapest current price is:', minPrice);
       console.log('Threshold price is:', thresholdPrice);
       // Fail the test if price is below threshold, so user gets alert
