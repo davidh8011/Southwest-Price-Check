@@ -1,48 +1,97 @@
 import { test, expect } from '@playwright/test';
 
-test('Check price of specific flight', async ({ page }) => {
-  const departCityCode = 'DCA';
-  const arriveCityCode = 'DAL';
-  const departDate = '5/1';
-  const flightNumbers = '# 1296';
+const flightData = [
+  {
+    departCityCode: 'DCA',
+    arriveCityCode: 'DAL',
+    departDate: '3/10',
+    thresholdPrice: 400, //You'll get alert if price goes below this
+    flightNumberOne: '19',
+    flightNumberTwo: '', //Only fill if you have second leg
+  },
+  {
+    departCityCode: 'DAL',
+    arriveCityCode: 'DCA',
+    departDate: '3/16',
+    thresholdPrice: 384,
+    flightNumberOne: '981',
+    flightNumberTwo: '2688', //Optional: Only fill if you have second leg
+  },
+];
 
-  await page.goto('https://www.southwest.com/');
+flightData.forEach((data) => {
+  test(
+    data.departCityCode +
+      ' -> ' +
+      data.departCityCode +
+      ' on ' +
+      data.departDate,
+    async ({ page }) => {
+      const departCityCode = data.departCityCode;
+      const arriveCityCode = data.arriveCityCode;
+      const departDate = data.departDate;
+      const thresholdPrice = data.thresholdPrice;
+      const flightNumberOne = data.flightNumberOne;
+      const flightNumberTwo = data.flightNumberTwo;
 
-  await page.locator('.radio-button', { hasText: 'One-way' }).first().click();
+      let flightNumbers: string;
+      if (flightNumberTwo) {
+        flightNumbers = '# ' + flightNumberOne + ' / ' + flightNumberTwo;
+      } else {
+        flightNumbers = '# ' + flightNumberOne;
+      }
 
-  await page
-    .locator('.input', {
-      has: page.locator('#LandingAirBookingSearchForm_originationAirportCode'),
-    })
-    .first()
-    .fill(departCityCode);
+      await page.goto(
+        'https://www.southwest.com/air/booking/?clk=GSUBNAV-AIR-BOOK'
+      );
 
-  await page
-    .locator('.input', {
-      has: page.locator('#LandingAirBookingSearchForm_destinationAirportCode'),
-    })
-    .first()
-    .fill(arriveCityCode);
+      await page.getByLabel('One-way').check();
+      await page.locator('#originationAirportCode').click();
+      await page.keyboard.type(departCityCode);
+      await page.locator('#destinationAirportCode').click();
+      await page.keyboard.type(arriveCityCode);
 
-  await page
-    .locator('.input', {
-      has: page.locator('#LandingAirBookingSearchForm_departureDate'),
-    })
-    .first()
-    .fill(departDate);
+      await page.locator('#departureDate').click();
+      await page.keyboard.type(departDate);
 
-  await page.locator('#LandingAirBookingSearchForm_submit-button').click();
-  await page.locator('#form-mixin--submit-button').click();
+      let flightList = false;
 
-  const myFlight = await page.locator('.air-booking-select-detail', {
-    has: page.locator('.actionable--text', { hasText: flightNumbers }),
-  });
+      while (!flightList) {
+        let response = await Promise.all([
+          page.waitForResponse(
+            'https://www.southwest.com/api/air-booking/v1/air-booking/page/air/booking/shopping'
+          ),
+          page.locator('#form-mixin--submit-button').click(),
+        ]);
 
-  const allPrices = await myFlight.locator('.fare-button--value').all();
+        if (response[0].ok() == true) flightList = true;
+      }
 
-  await expect(page.locator('#bingbong')).toBeVisible();
+      const myFlight = await page.locator('.air-booking-select-detail', {
+        has: page.getByText(flightNumbers, { exact: true }),
+      });
 
-  //   await page.locator('.actionable--text', { hasText: flightNumbers }).click();
+      await expect(myFlight, 'Flight not found').toBeVisible();
 
-  // await page.pause();
+      const allPrices = await myFlight.locator('.fare-button--value').all();
+
+      let minPrice = 9999;
+
+      for (const priceLocator of allPrices) {
+        const priceText = await priceLocator.textContent();
+        const price = Number(priceText.split(' ')[0]);
+
+        if (price < minPrice) minPrice = price;
+      }
+
+      //Display current price and threshold price for the flight
+      console.log('Flight number(s):', flightNumbers);
+      console.log('Cheapest current price is:', minPrice);
+      console.log('Threshold price is:', thresholdPrice);
+      // Fail the test if price is below threshold, so user gets alert
+      expect(minPrice > thresholdPrice, 'Price is cheaper!').toBeTruthy();
+      //If above statement is true/doesn't fail, then price is not cheaper
+      console.log('Price is not cheaper');
+    }
+  );
 });

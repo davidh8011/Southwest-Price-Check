@@ -1,12 +1,12 @@
-name: Playwright Tests
+name: Check for Cheaper flight!!
 #Make sure to use UTC time for this schedule https://savvytime.com/converter/cst-to-utc
 #Order is minute hour(use military time) day of month(1-31) month (1-12) day of week (0-6 SUN-SAT)
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
 jobs:
   test:
-    timeout-minutes: 150
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
