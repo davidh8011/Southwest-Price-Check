@@ -2,21 +2,21 @@ import { test, expect } from '@playwright/test';
 
 const flightData = [
   {
-    departCityCode: 'DCA',
-    arriveCityCode: 'DAL',
-    departDate: '3/10',
-    thresholdPrice: 300, //You'll get alert if price goes below this
-    flightNumberOne: '19',
+    departCityCode: 'DAL',
+    arriveCityCode: 'DCA',
+    departDate: '4/27',
+    thresholdPrice: 149, //You'll get alert if price goes below this
+    flightNumberOne: '3710',
     flightNumberTwo: '', //Only fill if you have second leg
   },
-  // {
-  //   departCityCode: 'DAL',
-  //   arriveCityCode: 'DCA',
-  //   departDate: '3/16',
-  //   thresholdPrice: 384,
-  //   flightNumberOne: '981',
-  //   flightNumberTwo: '2688', //Optional: Only fill if you have second leg
-  // },
+{
+    departCityCode: 'DCA',
+    arriveCityCode: 'DAL',
+    departDate: '5/1',
+    thresholdPrice: 129, //You'll get alert if price goes below this
+    flightNumberOne: '1548',
+    flightNumberTwo: '', //Only fill if you have second leg
+  },
 ];
 
 flightData.forEach((data) => {
