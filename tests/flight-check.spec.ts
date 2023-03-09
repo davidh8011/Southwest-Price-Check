@@ -9,14 +9,14 @@ const flightData = [
     flightNumberOne: '19',
     flightNumberTwo: '', //Only fill if you have second leg
   },
-  {
-    departCityCode: 'DAL',
-    arriveCityCode: 'DCA',
-    departDate: '3/16',
-    thresholdPrice: 384,
-    flightNumberOne: '981',
-    flightNumberTwo: '2688', //Optional: Only fill if you have second leg
-  },
+  // {
+  //   departCityCode: 'DAL',
+  //   arriveCityCode: 'DCA',
+  //   departDate: '3/16',
+  //   thresholdPrice: 384,
+  //   flightNumberOne: '981',
+  //   flightNumberTwo: '2688', //Optional: Only fill if you have second leg
+  // },
 ];
 
 flightData.forEach((data) => {
