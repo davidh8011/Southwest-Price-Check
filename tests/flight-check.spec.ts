@@ -42,5 +42,5 @@ test('Check price of specific flight', async ({ page }) => {
 
   //   await page.locator('.actionable--text', { hasText: flightNumbers }).click();
 
-  await page.pause();
+  // await page.pause();
 });
