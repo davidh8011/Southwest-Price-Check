@@ -2,11 +2,8 @@ name: Check for Cheaper flight!!
 #Make sure to use UTC time for this schedule https://savvytime.com/converter/cst-to-utc
 #Order is minute hour(use military time) day of month(1-31) month (1-12) day of week (0-6 SUN-SAT)
 on:
-  push:
-    branches:
-      ['main']
-      # schedule:
-  #   - cron: "55 21 * * *"
+  chedule:
+    - cron: '55 21 * * *'
 jobs:
   test:
     timeout-minutes: 10
