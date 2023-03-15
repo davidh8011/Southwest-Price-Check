@@ -44,15 +44,20 @@ flightData.forEach((data) => {
       await page.goto(
         'https://www.southwest.com/air/booking/?clk=GSUBNAV-AIR-BOOK'
       );
+      await expect(page.getByText('One-way')).toBeVisible();
+      await expect(page.locator('#Depart')).toBeVisible();
 
       await page.getByLabel('One-way').check();
       await page.locator('#originationAirportCode').click();
       await page.keyboard.type(departCityCode);
+      await page.keyboard.press('Enter');
       await page.locator('#destinationAirportCode').click();
       await page.keyboard.type(arriveCityCode);
+      await page.keyboard.press('Enter');
 
       await page.locator('#departureDate').click();
       await page.keyboard.type(departDate);
+      await page.keyboard.press('Enter');
 
       let flightList = false;
 
