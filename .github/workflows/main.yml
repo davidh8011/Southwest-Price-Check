@@ -4,7 +4,7 @@ name: Check for Cheaper flight!!
 on:
   schedule:
     - cron: '22 22 * * *'
-on: workflow_dispatch
+  workflow_dispatch:
 jobs:
   test:
     timeout-minutes: 10
