@@ -44,10 +44,14 @@ flightData.forEach((data) => {
       await page.goto(
         'https://www.southwest.com/air/booking/?clk=GSUBNAV-AIR-BOOK'
       );
-      await expect(page.getByText('One-way')).toBeVisible();
+
+      // Validate page has loaded
+      const onewayButton = page.locator('input[type="radio"][value="oneway"]');
+      await expect(onewayButton).toBeVisible();
       await expect(page.locator('#Depart')).toBeVisible();
 
-      await page.getByLabel('One-way').check();
+      // Enter flight info
+      await onewayButton.check();
       await page.locator('#originationAirportCode').click();
       await page.keyboard.type(departCityCode);
       await page.keyboard.press('Enter');
@@ -59,6 +63,7 @@ flightData.forEach((data) => {
       await page.keyboard.type(departDate);
       await page.keyboard.press('Enter');
 
+      // Submit flight info (keep trying until successful)
       let flightList = false;
 
       while (!flightList) {
@@ -76,12 +81,12 @@ flightData.forEach((data) => {
         has: page.getByText(flightNumbers, { exact: true }),
       });
 
+      // Validate flight is displayed
       await expect(myFlight, 'Flight not found').toBeVisible();
 
+      // Check prices of your flight and look for the minimum
       const allPrices = await myFlight.locator('.fare-button--value').all();
-
       let minPrice = 9999;
-
       for (const priceLocator of allPrices) {
         const priceText = await priceLocator.textContent();
         const price = Number(priceText.split(' ')[0]);
