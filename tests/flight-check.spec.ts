@@ -1,4 +1,8 @@
 import { test, expect } from '@playwright/test';
+// const random_useragent = require('random-useragent');
+// const playwright = require('playwright');
+// import random_useragent from 'random-useragent';
+// import playwright from 'playwright';
 
 const flightData = [
   {
@@ -27,6 +31,14 @@ flightData.forEach((data) => {
       ' on ' +
       data.departDate,
     async ({ page }) => {
+      // //Create random agent
+      // const agent = random_useragent.getRandom();
+      // //Set up browser
+      // const browser = await playwright.chromium.launch({ headless: true });
+      // const context = await browser.newContext({ userAgent: agent });
+      // const page = await context.newPage({ bypassCSP: true });
+
+      //Enter data
       const departCityCode = data.departCityCode;
       const arriveCityCode = data.arriveCityCode;
       const departDate = data.departDate;
