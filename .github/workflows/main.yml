@@ -23,7 +23,7 @@ jobs:
       - name: Install random agent
         run: npm install random-useragent
       - name: Run Playwright tests
-        run: npx playwright test tests/flight-check.spec.ts --project=chromium
+        run: npx playwright test tests/flight-check.spec.ts --project=firefox
       - uses: actions/upload-artifact@v3
         if: always()
         with:
