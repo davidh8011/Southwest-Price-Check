@@ -3,7 +3,7 @@ name: Check for Cheaper flight!!
 #Order is minute hour(use military time) day of month(1-31) month (1-12) day of week (0-6 SUN-SAT)
 on:
   schedule:
-    - cron: '22 22 * * *'
+    - cron: '22 21 * * *'
   workflow_dispatch:
 jobs:
   test:
@@ -19,7 +19,7 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
-        run: npx playwright test tests/flight-check.spec.ts --project=webkit
+        run: npx playwright test tests/flight-check.spec.ts
       - uses: actions/upload-artifact@v3
         if: always()
         with:
