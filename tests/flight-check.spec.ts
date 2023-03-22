@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 // const random_useragent = require('random-useragent');
 // const playwright = require('playwright');
-// import random_useragent from 'random-useragent';
-// import playwright from 'playwright';
+import random_useragent from 'random-useragent';
+import playwright from 'playwright';
 
 const flightData = [
   {
@@ -30,13 +30,13 @@ flightData.forEach((data) => {
       data.departCityCode +
       ' on ' +
       data.departDate,
-    async ({ page }) => {
-      // //Create random agent
-      // const agent = random_useragent.getRandom();
-      // //Set up browser
-      // const browser = await playwright.chromium.launch({ headless: true });
-      // const context = await browser.newContext({ userAgent: agent });
-      // const page = await context.newPage({ bypassCSP: true });
+    async () => {
+      //Create random agent
+      const agent = random_useragent.getRandom();
+      //Set up browser
+      const browser = await playwright.chromium.launch({ headless: true });
+      const context = await browser.newContext({ userAgent: agent });
+      const page = await context.newPage({ bypassCSP: true });
 
       //Enter data
       const departCityCode = data.departCityCode;
@@ -56,6 +56,7 @@ flightData.forEach((data) => {
       await page.goto(
         'https://www.southwest.com/air/booking/?clk=GSUBNAV-AIR-BOOK'
       );
+      await page.waitForTimeout(1000);
 
       // Validate page has loaded
       const onewayButton = page.locator('input[type="radio"][value="oneway"]');
@@ -64,16 +65,26 @@ flightData.forEach((data) => {
 
       // Enter flight info
       await onewayButton.check();
+      await page.waitForTimeout(1000);
       await page.locator('#originationAirportCode').click();
+      await page.waitForTimeout(500);
       await page.keyboard.type(departCityCode);
+      await page.waitForTimeout(500);
       await page.keyboard.press('Enter');
+      await page.waitForTimeout(500);
       await page.locator('#destinationAirportCode').click();
+      await page.waitForTimeout(500);
       await page.keyboard.type(arriveCityCode);
+      await page.waitForTimeout(500);
       await page.keyboard.press('Enter');
 
+      await page.waitForTimeout(500);
       await page.locator('#departureDate').click();
+      await page.waitForTimeout(500);
       await page.keyboard.type(departDate);
+      await page.waitForTimeout(500);
       await page.keyboard.press('Enter');
+      await page.waitForTimeout(500);
 
       // Submit flight info (keep trying until successful)
       let flightList = false;
@@ -87,6 +98,7 @@ flightData.forEach((data) => {
         ]);
 
         if (response[0].ok() == true) flightList = true;
+        else await page.waitForTimeout(1000);
       }
 
       const myFlight = await page.locator('.air-booking-select-detail', {
