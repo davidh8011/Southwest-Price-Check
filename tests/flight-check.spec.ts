@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 // import random_useragent from 'random-useragent';
 // import playwright from 'playwright';
-
+``;
 const flightData = [
   {
     departCityCode: 'DAL',
@@ -86,8 +86,10 @@ flightData.forEach((data) => {
 
       // Submit flight info (keep trying until successful)
       let flightList = false;
+      const maxRetries = 6;
+      let retries = 0;
 
-      while (!flightList) {
+      while (!flightList && retries < maxRetries) {
         let response = await Promise.all([
           page.waitForResponse(
             'https://www.southwest.com/api/air-booking/v1/air-booking/page/air/booking/shopping'
@@ -96,7 +98,10 @@ flightData.forEach((data) => {
         ]);
 
         if (response[0].ok() == true) flightList = true;
-        else await page.waitForTimeout(1000);
+        else {
+          await page.waitForTimeout(1000);
+          retries++;
+        }
       }
 
       const myFlight = await page.locator('.air-booking-select-detail', {
