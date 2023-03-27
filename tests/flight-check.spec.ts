@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 // import random_useragent from 'random-useragent';
 // import playwright from 'playwright';
-``;
+
 const flightData = [
   {
     departCityCode: 'DAL',
@@ -83,10 +83,12 @@ flightData.forEach((data) => {
       await page.waitForTimeout(500);
       await page.keyboard.press('Enter');
       await page.waitForTimeout(500);
+      await onewayButton.click();
+      await page.waitForTimeout(500);
 
       // Submit flight info (keep trying until successful)
       let flightList = false;
-      const maxRetries = 6;
+      const maxRetries = 3;
       let retries = 0;
 
       while (!flightList && retries < maxRetries) {
