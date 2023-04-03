@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "testh": "npx playwright test",
-    "test": "npx playwright test --headed"
+    "testh": "npx playwright test --project=firefox",
+    "test": "npx playwright test --project=firefox --headed"
   },
   "keywords": [],
   "author": "",

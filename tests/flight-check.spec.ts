@@ -54,7 +54,7 @@ flightData.forEach((data) => {
       await page.goto(
         'https://www.southwest.com/air/booking/?clk=GSUBNAV-AIR-BOOK'
       );
-      await page.waitForTimeout(1000);
+      await page.waitForTimeout(500);
 
       // Validate page has loaded
       const onewayButton = page.locator('input[type="radio"][value="oneway"]');
@@ -63,28 +63,28 @@ flightData.forEach((data) => {
 
       // Enter flight info
       await onewayButton.check();
-      await page.waitForTimeout(1000);
+      await page.waitForTimeout(200);
       await page.locator('#originationAirportCode').click();
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(200);
       await page.keyboard.type(departCityCode);
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(200);
       await page.keyboard.press('Enter');
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(200);
       await page.locator('#destinationAirportCode').click();
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(200);
       await page.keyboard.type(arriveCityCode);
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(200);
       await page.keyboard.press('Enter');
 
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(200);
       await page.locator('#departureDate').click();
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(200);
       await page.keyboard.type(departDate);
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(200);
       await page.keyboard.press('Enter');
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(200);
       await onewayButton.click();
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(200);
 
       // Submit flight info (keep trying until successful)
       let flightList = false;
