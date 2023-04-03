@@ -5,6 +5,14 @@ import { test, expect } from '@playwright/test';
 const flightData = [
   {
     departCityCode: 'DAL',
+    arriveCityCode: 'DEN',
+    departDate: '4/12',
+    thresholdPrice: 119, //You'll get alert if price goes below this
+    flightNumberOne: '3726',
+    flightNumberTwo: '', //Only fill if you have second leg
+  },
+  {
+    departCityCode: 'DAL',
     arriveCityCode: 'DCA',
     departDate: '4/27',
     thresholdPrice: 149, //You'll get alert if price goes below this
