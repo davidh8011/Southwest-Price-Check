@@ -114,9 +114,15 @@ flightData.forEach((data) => {
         }
       }
 
+      // const myFlight = await page.locator('.air-booking-select-detail', {
+      //   has: page.getByText(flightNumbers, { exact: true }),
+      // });
       const myFlight = await page.locator('.air-booking-select-detail', {
-        has: page.getByText(flightNumbers, { exact: true }),
+        has: page.locator('.actionable--text', {
+          hasText: flightNumbers,
+        }),
       });
+      console.log(await myFlight.innerText());
 
       // Validate flight is displayed
       await expect(myFlight, 'Flight not found').toBeVisible();
