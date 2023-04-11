@@ -122,7 +122,6 @@ flightData.forEach((data) => {
           hasText: flightNumbers,
         }),
       });
-      console.log(await myFlight.innerText());
 
       // Validate flight is displayed
       await expect(myFlight, 'Flight not found').toBeVisible();
