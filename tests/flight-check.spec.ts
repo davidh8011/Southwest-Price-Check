@@ -3,21 +3,29 @@ import { test, expect } from '@playwright/test';
 // import playwright from 'playwright';
 
 const flightData = [
-  // {
-  //   departCityCode: 'DAL',
-  //   arriveCityCode: 'DCA',
-  //   departDate: '4/27',
-  //   thresholdPrice: 149, //You'll get alert if price goes below this
-  //   flightNumberOne: '3710',
-  //   flightNumberTwo: '', //Only fill if you have second leg
-  // },
+  {
+    departCityCode: 'DAL',
+    arriveCityCode: 'CUN',
+    departDate: '4/29',
+    thresholdPrice: 217, //You'll get alert if price goes below this
+    flightNumberOne: '1',
+    flightNumberTwo: '317', //Only fill if you have second leg
+  },
+  {
+    departCityCode: 'CUN',
+    arriveCityCode: 'DAL',
+    departDate: '5/6',
+    thresholdPrice: 282, //You'll get alert if price goes below this
+    flightNumberOne: '521',
+    flightNumberTwo: '920', //Only fill if you have second leg
+  },
 ];
 
 flightData.forEach((data) => {
   test(
     data.departCityCode +
       ' -> ' +
-      data.departCityCode +
+      data.arriveCityCode +
       ' on ' +
       data.departDate,
     async ({ page }) => {
