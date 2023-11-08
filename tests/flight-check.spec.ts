@@ -7,7 +7,7 @@ const flightData = [
     departCityCode: 'DAL',
     arriveCityCode: 'CUN',
     departDate: '4/29',
-    thresholdPrice: 217, //You'll get alert if price goes below this
+    thresholdPrice: 216, //You'll get alert if price goes below this
     flightNumberOne: '1',
     flightNumberTwo: '317', //Only fill if you have second leg
   },
