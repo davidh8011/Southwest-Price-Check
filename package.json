@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "testh": "npx playwright test --project=firefox",
-    "test": "npx playwright test --project=chromium --headed"
+    "test": "npx playwright test --project=chromium --headed",
+    "testf": "npx playwright test --project=firefox --headed"
   },
   "keywords": [],
   "author": "",

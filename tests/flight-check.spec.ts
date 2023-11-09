@@ -102,6 +102,8 @@ flightData.forEach((data) => {
         if (response[0].ok() == true) flightList = true;
         else {
           await page.waitForTimeout(1000);
+          await onewayButton.click();
+          await page.waitForTimeout(1000);
           retries++;
         }
       }
