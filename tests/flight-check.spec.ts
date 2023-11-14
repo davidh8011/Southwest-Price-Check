@@ -8,16 +8,27 @@ const flightData = [
     arriveCityCode: 'CUN',
     departDate: '4/29',
     thresholdPrice: 216, //You'll get alert if price goes below this
-    flightNumberOne: '1',
-    flightNumberTwo: '317', //Only fill if you have second leg
+    flights: [
+      ['1628', '317'],
+      ['2824', '751'],
+      ['372', '708'],
+      ['6142', '828'],
+      ['1', '317'],
+    ], // Add all flights in 2D array (keeping together connections)
   },
   {
     departCityCode: 'CUN',
     arriveCityCode: 'DAL',
     departDate: '5/6',
     thresholdPrice: 281, //You'll get alert if price goes below this
-    flightNumberOne: '521',
-    flightNumberTwo: '920', //Only fill if you have second leg
+    flights: [
+      ['328', '48'],
+      ['328', '52'],
+      ['328', '58'],
+      ['521', '920'],
+      ['1018', '1332'],
+      ['1996', '5968'],
+    ], // Add all flights in 2D array (keeping together connections)
   },
 ];
 
@@ -41,16 +52,9 @@ flightData.forEach((data) => {
       const arriveCityCode = data.arriveCityCode;
       const departDate = data.departDate;
       const thresholdPrice = data.thresholdPrice;
-      const flightNumberOne = data.flightNumberOne;
-      const flightNumberTwo = data.flightNumberTwo;
+      const flights = data.flights;
 
-      let flightNumbers: string;
-      if (flightNumberTwo) {
-        flightNumbers = '# ' + flightNumberOne + ' / ' + flightNumberTwo;
-      } else {
-        flightNumbers = '# ' + flightNumberOne;
-      }
-
+      //Navigate to the website
       await page.goto(
         'https://www.southwest.com/air/booking/?clk=GSUBNAV-AIR-BOOK'
       );
@@ -111,28 +115,55 @@ flightData.forEach((data) => {
       // const myFlight = await page.locator('.air-booking-select-detail', {
       //   has: page.getByText(flightNumbers, { exact: true }),
       // });
-      const myFlight = await page.locator('.air-booking-select-detail', {
-        has: page.locator('.actionable--text', {
-          hasText: flightNumbers,
-        }),
-      });
+      await expect(page.locator('#price-matrix-heading-0')).toBeVisible();
 
-      // Validate flight is displayed
-      await expect(myFlight, 'Flight not found').toBeVisible();
-
-      // Check prices of your flight and look for the minimum
-      const allPrices = await myFlight.locator('.fare-button--value').all();
-      let minPrice = 9999;
-      for (const priceLocator of allPrices) {
-        const priceText = await priceLocator.textContent();
-        const price = Number(priceText.split(' ')[0]);
-
-        if (price < minPrice) minPrice = price;
-      }
-
-      //Display current price and threshold price for the flight
-      console.log('Flight number(s):', flightNumbers);
       console.log(departCityCode, '->', arriveCityCode, 'on', departDate);
+      let minPrice = 9999;
+      for (const flight of flights) {
+        let thisFlightCheapest = 9999;
+        let flightNumbers: string;
+        if (flight[1]) {
+          flightNumbers = '# ' + flight[0] + ' / ' + flight[1];
+        } else {
+          flightNumbers = '# ' + flight[0];
+        }
+
+        const myFlight = await page.locator('.air-booking-select-detail', {
+          has: page.locator('.actionable--text', {
+            hasText: flightNumbers,
+          }),
+        });
+
+        // Validate flight is displayed
+        // await expect(myFlight, 'Flight not found').toBeVisible();
+
+        if (await myFlight.isVisible()) {
+          // Check prices of your flight and look for the minimum
+          const allPrices = await myFlight.locator('.fare-button--value').all();
+          for (const priceLocator of allPrices) {
+            const priceText = await priceLocator.textContent();
+            const price = Number(priceText.split(' ')[0]);
+
+            if (price < thisFlightCheapest) thisFlightCheapest = price;
+            if (price < minPrice) minPrice = price;
+          }
+
+          //Display current price and threshold price for the flight
+          console.log(
+            'Flight number(s):',
+            flightNumbers,
+            '   Price:',
+            thisFlightCheapest
+          );
+        } else {
+          console.log(
+            'Flight number(s):',
+            flightNumbers,
+            '   Price:',
+            'Flight not found'
+          );
+        }
+      }
       console.log('Cheapest current price is:', minPrice);
       console.log('Threshold price is:', thresholdPrice);
       // Fail the test if price is below threshold, so user gets alert
