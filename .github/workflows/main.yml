@@ -3,7 +3,7 @@ name: Check for Cheaper flight!!
 #Order is minute hour(use military time) day of month(1-31) month (1-12) day of week (0-6 SUN-SAT)
 on:
   schedule:
-    - cron: '3 20 * * *'
+    - cron: '15 20 * * *'
   workflow_dispatch:
 jobs:
   test:
