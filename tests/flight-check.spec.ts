@@ -132,11 +132,19 @@ flightData.forEach((data) => {
           // Check prices of your flight and look for the minimum
           const allPrices = await myFlight.locator('.fare-button--value').all();
           for (const priceLocator of allPrices) {
-            const priceText = await priceLocator.textContent();
-            const price = Number(priceText.split(' ')[0]);
+            const priceText = await priceLocator.innerText();
+            for (const priceTextLine of priceText.split('\n')) {
+              if (priceTextLine.split(' ')[1] == 'Dollars') {
+                const price = Number(priceTextLine.split(' ')[0]);
+                if (price < thisFlightCheapest) thisFlightCheapest = price;
+                if (price < minPrice) minPrice = price;
+              }
+            }
 
-            if (price < thisFlightCheapest) thisFlightCheapest = price;
-            if (price < minPrice) minPrice = price;
+            // const price = priceText.split('\n')[0];
+            // console.log('Parsed Price:', price);
+            // const deal = await priceLocator.locator('')
+            // console.log(await priceLocator.innerText());
           }
 
           //Display current price and threshold price for the flight
