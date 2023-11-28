@@ -6,28 +6,19 @@ const flightData = [
   {
     departCityCode: 'DAL',
     arriveCityCode: 'CUN',
-    departDate: '4/29',
-    thresholdPrice: 216, //You'll get alert if price goes below this
-    flights: [
-      ['1628', '317'],
-      ['2824', '751'],
-      ['372', '708'],
-      ['6142', '828'],
-      ['1', '317'],
-    ], // Add all flights in 2D array (keeping together connections)
+    departDate: '4/28',
+    thresholdPrice: 184, //You'll get alert if price goes below this
+    flights: [['15', '305']], // Add all flights in 2D array (keeping together connections)
   },
   {
     departCityCode: 'CUN',
     arriveCityCode: 'DAL',
-    departDate: '5/6',
+    departDate: '5/5',
     thresholdPrice: 281, //You'll get alert if price goes below this
     flights: [
-      ['328', '48'],
-      ['328', '52'],
-      ['328', '58'],
-      ['521', '920'],
-      ['1018', '1332'],
+      ['387', '5455'],
       ['1996', '5968'],
+      ['587', '1292'],
     ], // Add all flights in 2D array (keeping together connections)
   },
 ];
