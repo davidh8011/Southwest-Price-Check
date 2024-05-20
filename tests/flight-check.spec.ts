@@ -5,20 +5,18 @@ import { test, expect } from '@playwright/test';
 const flightData = [
   {
     departCityCode: 'DAL',
-    arriveCityCode: 'CUN',
-    departDate: '4/28',
-    thresholdPrice: 173, //You'll get alert if price goes below this
-    flights: [['15', '305']], // Add all flights in 2D array (keeping together connections)
+    arriveCityCode: 'ABQ',
+    departDate: '9/5',
+    thresholdPrice: 125, //You'll get alert if price goes below this
+    flights: [['4373']], // Add all flights in 2D array (keeping together connections)
   },
   {
-    departCityCode: 'CUN',
+    departCityCode: 'ABQ',
     arriveCityCode: 'DAL',
-    departDate: '5/5',
-    thresholdPrice: 213, //You'll get alert if price goes below this
+    departDate: '9/8',
+    thresholdPrice: 150, //You'll get alert if price goes below this
     flights: [
-      ['387', '5455'],
-      ['1996', '5968'],
-      ['587', '1292'],
+      ['1370'],
     ], // Add all flights in 2D array (keeping together connections)
   },
 ];
