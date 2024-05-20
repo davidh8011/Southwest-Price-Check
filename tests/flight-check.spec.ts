@@ -104,7 +104,7 @@ flightData.forEach((data) => {
       // const myFlight = await page.locator('.air-booking-select-detail', {
       //   has: page.getByText(flightNumbers, { exact: true }),
       // });
-      await expect(page.locator('#price-matrix-heading-0')).toBeVisible();
+      await expect(page.locator('#price-matrix-heading-0').first()).toBeVisible();
 
       console.log(departCityCode, '->', arriveCityCode, 'on', departDate);
       let minPrice = 9999;
