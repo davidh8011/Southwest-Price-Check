@@ -8,7 +8,7 @@ const flightData = [
     arriveCityCode: 'ABQ',
     departDate: '9/5',
     thresholdPrice: 110, //You'll get alert if price goes below this
-    flights: [['4373']], // Add all flights in 2D array (keeping together connections); example for multiple flights each with a connection flights: [['387', '5455'],['1996', '5968'],['587', '1292'],],
+    flights: [['236']], // Add all flights in 2D array (keeping together connections); example for multiple flights each with a connection flights: [['387', '5455'],['1996', '5968'],['587', '1292'],],
   },
   {
     departCityCode: 'ABQ',
