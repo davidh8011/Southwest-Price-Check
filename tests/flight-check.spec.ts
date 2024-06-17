@@ -19,6 +19,26 @@ const flightData = [
       ['1370'],
     ], // Add all flights in 2D array (keeping together connections)
   },
+  {
+    departCityCode: 'DAL',
+    arriveCityCode: 'LIH',
+    departDate: '1/15',
+    thresholdPrice: 219, //You'll get alert if price goes below this
+    flights: [
+      ['5150','1871'],
+      ['1285','2291'],
+      ['1168','2291']
+    ], // Add all flights in 2D array (keeping together connections)
+  },
+    {
+    departCityCode: 'LIH',
+    arriveCityCode: 'DAL',
+    departDate: '1/22',
+    thresholdPrice: 224, //You'll get alert if price goes below this
+    flights: [
+      ['1975','4679','15],
+    ], // Add all flights in 2D array (keeping together connections)
+  },
 ];
 
 flightData.forEach((data) => {
