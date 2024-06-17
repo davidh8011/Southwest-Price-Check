@@ -37,6 +37,9 @@ const flightData = [
     thresholdPrice: 230, //You'll get alert if price goes below this
     flights: [
       ['1975','4670','15'],
+      ['1595','1370'],
+      ['1595','2010'],
+      ['1595','1154']
     ], // Add all flights in 2D array (keeping together connections)
   },
 ];
