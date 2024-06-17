@@ -34,9 +34,9 @@ const flightData = [
     departCityCode: 'LIH',
     arriveCityCode: 'DAL',
     departDate: '1/22',
-    thresholdPrice: 224, //You'll get alert if price goes below this
+    thresholdPrice: 230, //You'll get alert if price goes below this
     flights: [
-      ['1975','4679','15'],
+      ['1975','4670','15'],
     ], // Add all flights in 2D array (keeping together connections)
   },
 ];
@@ -131,9 +131,13 @@ flightData.forEach((data) => {
       for (const flight of flights) {
         let thisFlightCheapest = 9999;
         let flightNumbers: string;
-        if (flight[1]) {
+        if(flight[2]){
+          flightNumbers = '# ' + flight[0] + ' / ' + flight[1] + ' / ' + flight[2];
+        }
+        else if (flight[1]) {
           flightNumbers = '# ' + flight[0] + ' / ' + flight[1];
-        } else {
+        } 
+        else {
           flightNumbers = '# ' + flight[0];
         }
 
