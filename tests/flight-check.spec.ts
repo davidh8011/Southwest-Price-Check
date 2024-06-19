@@ -34,7 +34,7 @@ const flightData = [
     departCityCode: 'LIH',
     arriveCityCode: 'DAL',
     departDate: '1/22',
-    thresholdPrice: 230, //You'll get alert if price goes below this
+    thresholdPrice: 219, //You'll get alert if price goes below this
     flights: [
       ['1975','4670','15'],
       ['1595','1370'],
