@@ -5,10 +5,46 @@ import { test, expect } from '@playwright/test';
 const flightData = [
   {
     departCityCode: 'DAL',
+<<<<<<< Updated upstream
     arriveCityCode: 'SJD',
     departDate: '4/17',
     thresholdPrice: 320, //You'll get alert if price goes below this
     flights: [['7','3006']], // Add all flights in 2D array (keeping together connections); example for multiple flights each with a connection flights: [['387', '5455'],['1996', '5968'],['587', '1292'],],
+=======
+    arriveCityCode: 'ABQ',
+    departDate: '9/5',
+    thresholdPrice: 110, //You'll get alert if price goes below this
+    flights: [['236']], // Add all flights in 2D array (keeping together connections); example for multiple flights each with a connection flights: [['387', '5455'],['1996', '5968'],['587', '1292'],],
+  },
+  {
+    departCityCode: 'ABQ',
+    arriveCityCode: 'DAL',
+    departDate: '9/8',
+    thresholdPrice: 140, //You'll get alert if price goes below this
+    flights: [
+      ['1370'],
+    ], // Add all flights in 2D array (keeping together connections)
+  },
+  {
+    departCityCode: 'DAL',
+    arriveCityCode: 'LIH',
+    departDate: '1/15',
+    thresholdPrice: 219, //You'll get alert if price goes below this
+    flights: [
+      ['5150','1871'],
+      ['1285','2291'],
+      ['1168','2291']
+    ], // Add all flights in 2D array (keeping together connections)
+  },
+    {
+    departCityCode: 'LIH',
+    arriveCityCode: 'DAL',
+    departDate: '1/22',
+    thresholdPrice: 230, //You'll get alert if price goes below this
+    flights: [
+      ['1975','4670','15'],
+    ], // Add all flights in 2D array (keeping together connections)
+>>>>>>> Stashed changes
   },
 ];
 
